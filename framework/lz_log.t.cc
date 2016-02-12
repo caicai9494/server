@@ -7,27 +7,18 @@
 #include <set>
 #include <stack>
 #include <string>
-#include <sstream>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 #include <tool/lz_test.h>
 
-#include <singleton.h>
-
-struct Foo {
-    void foo(std::ostream& out) 
-    {
-	out << "foo\n";
-    }
-};
+#include <lz_log.h> 
 
 int main()
 {
-    std::stringstream sstream;
-    Singleton<Foo>::instance()->foo(sstream);
-    ASSERT_EQ(sstream.str(), "foo\n");
+    LZ::Log log;
+    //ASSERT_EQ(1, 1);
     //ASSERT_TRUE("123" == "1231");
 
     //int A[] = {5, 7, 7, 8, 8, 10};

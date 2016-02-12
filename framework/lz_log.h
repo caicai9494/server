@@ -4,7 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <mutex>
-#include <singleton.h>
+#include <lz_singleton.h>
+
+namespace LZ {
 
 class Log {
 
@@ -12,9 +14,7 @@ class Log {
 
     Log();
 
-    ~Log()
-    {
-    }
+    ~Log() {}
 
     template<typename T>
     void writeError(const T& obj);
@@ -33,5 +33,6 @@ class Log {
 #define sLog singleton<Log>::instance()
 
 
+} // close namespace
 
 #endif

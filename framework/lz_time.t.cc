@@ -1,3 +1,4 @@
+#include <time.h> 
 #include <algorithm>
 #include <bitset>
 #include <iostream>
@@ -12,12 +13,12 @@
 #include <vector>
 
 #include <tool/lz_test.h>
-
-#include <log.h> 
+#include <lz_time.h>
 
 int main()
 {
-    Log log;
+    
+    std::cout << LZ::Time() << '\n';
     //ASSERT_EQ(1, 1);
     //ASSERT_TRUE("123" == "1231");
 

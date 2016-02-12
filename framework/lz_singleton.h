@@ -1,6 +1,8 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
 
+namespace LZ {
+
 template <typename T>
 class Singleton {
   public:
@@ -19,5 +21,7 @@ class Singleton {
 
     Singleton() = default;
 };
+
+} // close namespace
 
 #endif
