@@ -7,6 +7,7 @@
 #include <set>
 #include <stack>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -14,10 +15,25 @@
 #include <tool/lz_test.h>
 
 #include <lz_log.h> 
+#include <unistd.h> 
 
 int main()
 {
-    LZ::Log log;
+    sLog.writeInfo("first.");
+
+    std::vector<std::thread> threads;
+
+    for (size_t i = 0; i != 10; ++i) {
+	threads.push_back(std::thread([i](){
+	    sleep(i);
+            sLog.writeInfo(i);
+	}));
+    }
+
+    for (size_t i = 0; i != 10; ++i) {
+        assert(threads[i].joinable());
+        threads[i].join();
+    }
     //ASSERT_EQ(1, 1);
     //ASSERT_TRUE("123" == "1231");
 

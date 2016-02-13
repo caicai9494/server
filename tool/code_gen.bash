@@ -26,6 +26,8 @@ FILE=$(echo $file | awk '{print toupper($0)}')
 echo "#ifndef ${FILE}_H 
 #define ${FILE}_H
 
+namespace LZ {
+
 class $file {
 
   public:
@@ -42,9 +44,17 @@ class $file {
 
 };
 
+} // close namespace
+
 #endif" > $file.h
 
-echo "#include <$file.h>" > $file.cc
+echo "#include <$file.h>
+
+namespace LZ {
+
+} // close namespace
+
+" > $file.cc
 
 echo "#include <$file.h> " > $file.t.cc
 cat tool/template.cc >> $file.t.cc

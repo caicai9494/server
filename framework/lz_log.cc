@@ -1,4 +1,6 @@
 #include <lz_log.h>
+#include <lz_time.h>
+
 #include <ctime>
 #include <sstream>
 
@@ -31,8 +33,8 @@ Log::Log()
 
     std::stringstream stream;
     stream << s_logPath << "log." 
-	   << year << '/'
-	   << mon << '/'
+	   << year << '-'
+	   << mon << '-'
 	   << day << '-' 
 	   << hour << ':' 
 	   << min << ':' 
@@ -48,19 +50,6 @@ Log::Log()
     d_file.open(stream.str().c_str(), std::ifstream::out);
 }
 
-template<typename T>
-void Log::writeError(const T& obj)
-{
-    std::lock_guard<std::mutex> lck(d_mutex);
-    d_file << "Error: " << obj << '\n';
-}
-
-template<typename T>
-void Log::writeInfo(const T& obj)
-{
-    std::lock_guard<std::mutex> lck(d_mutex);
-    d_file << "Info: " << obj << '\n';
-}
 
 } // close namespace
 

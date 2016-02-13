@@ -10,11 +10,11 @@ class Singleton {
     // This code is concurrently safe in c++1x.
     // A thread will wait if the static variable 
     // is being initialized.
-    static T* instance()
+    static T& instance()
     {
 	// Using the default constructor
 	static T instn;
-	return &instn;
+	return instn;
     }
 
   protected:
