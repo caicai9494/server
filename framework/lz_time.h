@@ -8,6 +8,8 @@ namespace LZ {
 
 class Time {
 
+    // This class defines a Time object to retrieve current time
+
   public:
 
     Time() { }

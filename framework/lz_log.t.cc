@@ -19,14 +19,16 @@
 
 int main()
 {
-    sLog.writeInfo("first.");
+    //sLog.writeInfo("first.");
+    LOG_ERROR("first.");
 
     std::vector<std::thread> threads;
 
     for (size_t i = 0; i != 10; ++i) {
 	threads.push_back(std::thread([i](){
 	    sleep(i);
-            sLog.writeInfo(i);
+	    LOG_INFO(i);
+            //sLog.writeInfo(i);
 	}));
     }
 

@@ -40,6 +40,8 @@ class Log {
 
 } // close namespace
 
-#define sLog LZ::Singleton<LZ::Log>::instance()
+#define sLog ::LZ::Singleton<LZ::Log>::instance()
+#define LOG_ERROR(error) sLog.writeError(error)
+#define LOG_INFO(info) sLog.writeInfo(info)
 
 #endif
