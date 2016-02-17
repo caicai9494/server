@@ -12,7 +12,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include <tool/lz_test.h>
+#include <lz_error.h>
 
 #include <lz_log.h> 
 #include <unistd.h> 

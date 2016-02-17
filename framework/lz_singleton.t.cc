@@ -12,7 +12,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include <tool/lz_test.h>
+#include <lz_error.h>
 
 #include <lz_singleton.h>
 
@@ -28,7 +28,7 @@ int main()
     using namespace LZ;
 
     std::stringstream sstream;
-    Singleton<Foo>::instance()->foo(sstream);
+    Singleton<Foo>::instance().foo(sstream);
     ASSERT_EQ(sstream.str(), "foo\n");
     //ASSERT_TRUE("123" == "1231");
 

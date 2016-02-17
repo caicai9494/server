@@ -1,0 +1,15 @@
+CC=g++ 
+
+LIBS=
+LIBS_INC=. ./framework ./tool
+
+TSK=lz_time.tsk
+SRC=lz_time.t.cc framework/lz_time.cc
+
+CPPFLAGS=-I$(LIBS_INC) -L$(LIBS) -g -std=c++11
+
+all:
+	$(CC) $(CPPFLAGS) -o $(TSK) $(SRC)
+
+clean:
+	rm -f *.o $(TSK)

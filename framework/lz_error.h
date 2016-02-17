@@ -1,5 +1,5 @@
-#ifndef LZ_TEST_H
-#define LZ_TEST_H
+#ifndef LZ_ERROR_H
+#define LZ_ERROR_H
 
 #include <assert.h>
 #include <stdio.h>
@@ -8,10 +8,17 @@
 #include <string>
 
 template <typename T>
-void DBG(const T& t) 
+void DBG_(const T& t) 
 {
-    std::cout << "\n[DBG\n" << t << "\nDBG]\n";
+    std::cout << t;
 }
+
+#define DBG(var) \
+    do {\
+	std::cout << "[" #var ": \n";\
+	DBG_(var);\
+	std::cout << "]\n"; \
+    } while(0)\
 
 #define ASSERT_EQ(lhs, rhs) \
     if (lhs != rhs) { \
@@ -27,8 +34,6 @@ void DBG(const T& t)
 	exit(EXIT_FAILURE); \
     } \
 
-
-	
 
 
 #endif

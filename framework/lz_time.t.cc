@@ -12,14 +12,13 @@
 #include <unordered_set>
 #include <vector>
 
-#include <tool/lz_test.h>
+#include <lz_error.h>
 #include <lz_time.h>
 
 int main()
 {
     
     std::cout << LZ::Time() << '\n';
-    //ASSERT_EQ(1, 1);
     //ASSERT_TRUE("123" == "1231");
 
     //int A[] = {5, 7, 7, 8, 8, 10};

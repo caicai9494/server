@@ -1,0 +1,15 @@
+CC=g++ 
+
+LIBS=
+LIBS_INC=.
+
+TSK=lz_singleton.tsk
+SRC=lz_singleton.t.cc
+
+CPPFLAGS=-I$(LIBS_INC) -L$(LIBS) -g -std=c++11
+
+all:
+	$(CC) $(CPPFLAGS) -o $(TSK) $(SRC)
+
+clean:
+	rm -f *.o $(TSK)
