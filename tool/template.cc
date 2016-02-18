@@ -11,7 +11,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include <tool/lz_test.h>
+#include <lz_error.h>
 
 int main()
 {

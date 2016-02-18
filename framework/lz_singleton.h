@@ -1,5 +1,5 @@
-#ifndef SINGLETON_H
-#define SINGLETON_H
+#ifndef LZ_SINGLETON_H
+#define LZ_SINGLETON_H
 
 namespace LZ {
 
