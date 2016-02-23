@@ -6,6 +6,8 @@
 // <lz_threadpool.h>
 
 #include <lz_threadpool.h>
+
+#include <chrono>
 #include <iostream>
 
 namespace LZ {
@@ -68,6 +70,12 @@ void Threadpool<SIZE>::execute()
 }
 
 template <size_t SIZE>
+void Threadpool<SIZE>::barrier(unsigned sec)
+{
+    std::this_thread::sleep_for(std::chrono::seconds(sec));
+}
+
+template <size_t SIZE>
 typename Threadpool<SIZE>::ErrorCode Threadpool<SIZE>::destroy()
 {
     std::unique_lock<std::mutex> lck(d_mtx);
@@ -82,7 +90,7 @@ typename Threadpool<SIZE>::ErrorCode Threadpool<SIZE>::destroy()
     d_cond.notify_all();
 
     std::for_each(d_threads.begin(), d_threads.end(), [this](std::thread& th){
-	d_cond.notify_all();
+	//d_cond.notify_all();
 	//d_tasks.push_back(nullptr);
 	th.join();
     });

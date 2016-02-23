@@ -1,0 +1,18 @@
+CC=g++ 
+
+LIBS=
+LIBS_INC=../framework/ .
+	 
+
+TSK=tcpexception.tsk
+SRC=lz_tcpexception.t.cc lz_tcpexception.cc lz_tcpstream.cc
+
+PTHREAD_ENABLED=#-pthread
+
+CPPFLAGS=$(LIBS_INC:%=-I%) -L$(LIBS) -g -std=c++11 $(PTHREAD_ENABLED)
+
+all:
+	$(CC) $(CPPFLAGS) -o $(TSK) $(SRC)
+
+clean:
+	rm -f *.o $(TSK)

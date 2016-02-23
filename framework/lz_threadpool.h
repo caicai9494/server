@@ -42,11 +42,16 @@ class Threadpool {
 
     ErrorCode destroy();
         // Shut down all threads.
-
+	// Return 'ErrorCode' correspondingly
+	
     void addTask(Runnable* tsk);
         // Not responsible for memory management 
 	// of 'tsk'. Undefined behavior if 'tsk' is 'nullptr'
 	
+
+    void barrier(unsigned sec);
+        // Let the pool run for at least 'sec' seconds
+
     size_t size() const { return d_tasks.size(); }
         // Return number of tasks
     std::string errorCodeToString(ErrorCode code)

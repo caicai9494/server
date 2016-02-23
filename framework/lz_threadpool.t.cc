@@ -35,19 +35,20 @@ int main()
     //LZ::Threadpool<> threadpool;
     using namespace LZ;
 
-    Threadpool<> threadpool;
+    Threadpool<50> threadpool;
 
     TimePrinterRunnable t;
 
-    for (size_t i = 0; i != 16; ++i) {
+    auto ret = threadpool.start();
+
+    for (size_t i = 0; i != 169; ++i) {
 	threadpool.addTask(&t);
 	//threadpool.addTask(new TimePrinterRunnable());
     }
 
-    ASSERT_EQ(threadpool.size(), 16u);
-   
-    auto ret = threadpool.start();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    threadpool.barrier(10);
+
+    //std::this_thread::sleep_for(std::chrono::seconds(10));
     //ASSERT_EQ(1, 1);
     //ASSERT_TRUE("123" == "1231");
 
