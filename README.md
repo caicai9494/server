@@ -1,1 +1,3 @@
-# tcpserver
+# server
+
+Build microservice-flavour application.
