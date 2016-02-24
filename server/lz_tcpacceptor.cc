@@ -47,7 +47,7 @@ void TcpAcceptor::listenClient()
     }
 }
 
-std::unique_ptr<TcpStream> TcpAcceptor::acceptClient() 
+std::unique_ptr<TcpStream> TcpAcceptor::acceptClient() const
 {
     struct sockaddr_in cliaddr;
     socklen_t cliaddr_len = sizeof(cliaddr);

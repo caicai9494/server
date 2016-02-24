@@ -1,12 +1,13 @@
 CC=g++ 
 
 LIBS=
-LIBS_INC=../framework/ .
+LIBS_INC=../framework/ . 
 
 TSK=tcpacceptor.tsk
-SRC=lz_tcpacceptor.t.cc lz_tcpexception.cc lz_tcpstream.cc lz_tcpacceptor.cc 
+SRC=lz_tcpacceptor.t.cc lz_tcpexception.cc lz_tcpstream.cc lz_tcpacceptor.cc \
+    ../framework/lz_log.cc ../framework/lz_time.cc
 
-PTHREAD_ENABLED=#-pthread
+PTHREAD_ENABLED=-pthread
 
 CPPFLAGS=$(LIBS_INC:%=-I%) $(LIBS:%=-L%) -g -std=c++11 $(PTHREAD_ENABLED)
 

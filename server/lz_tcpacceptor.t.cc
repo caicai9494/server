@@ -14,23 +14,79 @@
 #include <lz_error.h>
 #include <lz_tcpacceptor.h> 
 #include <lz_tcpexception.h> 
+#include <lz_runnable.h>
+#include <lz_threadpool.h>
+
+namespace LZ {
+
+class SessionRunnable : public Runnable {
+  public:
+    SessionRunnable(TcpAcceptor& acpt) :
+	d_acceptor(acpt) {}
+    void run() override
+    {
+	auto stream = d_acceptor.acceptClient();
+
+	while (1) {
+	    std::string output;
+	    size_t n = stream->getString(output);
+	    if (n != 0) {
+		std::cout << output << '\n';
+	    }
+	    else {
+		break;
+	    }
+	}
+    }
+  private:
+    TcpAcceptor& d_acceptor;
+};
+
+} // close namespace LZ
 
 int main()
 {
     using namespace LZ;
 
+    const int CLI_MAX = 16;
+
+    Threadpool<CLI_MAX> threadpool;
+    auto ret = threadpool.start();
+
     try {
+
 	TcpAcceptor acceptor(8000);
 	std::cout << "Accepting...\n";
+
+	std::vector<SessionRunnable*> sessions;
+	for (size_t i = 0; i != CLI_MAX; ++i) {
+	    sessions.push_back(new SessionRunnable(acceptor));
+	    threadpool.addTask(sessions[i]);
+	}
+	
+	threadpool.barrier(11);
+	// wait 11 sec
+
+	/*
 
 	auto stream = acceptor.acceptClient();
 
 	while (1) {
 	    std::string output;
-	    stream->getString(output);
-	    std::cout << output << '\n';
+	    size_t n = stream->getString(output);
+	    if (n != 0) {
+		std::cout << output << '\n';
+	    }
+	    else {
+		std::cout << "Closing...\n";
+		break;
+	    }
 	}
+	*/
+
+	
     }
+
     catch (TcpException& ex) {
 	std::cerr << ex.what() << '\n';
     }

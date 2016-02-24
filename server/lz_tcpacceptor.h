@@ -23,7 +23,7 @@ class TcpAcceptor {
 
     ~TcpAcceptor() {}
 
-    std::unique_ptr<TcpStream> acceptClient();
+    std::unique_ptr<TcpStream> acceptClient() const;
 
   private:
 
