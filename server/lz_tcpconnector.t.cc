@@ -1,3 +1,4 @@
+#include <lz_tcpconnector.h> 
 #include <algorithm>
 #include <bitset>
 #include <iostream>
@@ -18,17 +19,14 @@
 int main()
 {
     using namespace LZ;
-
     try {
-	TcpAcceptor acceptor(8000);
-	std::cout << "Accepting...\n";
-
-	auto stream = acceptor.acceptClient();
+	TcpConnector conn("127.0.0.1", 8000);
+	auto stream = conn.connectServer();
 
 	while (1) {
-	    std::string output;
-	    stream->getString(output);
-	    std::cout << output << '\n';
+	    std::string input;
+	    std::cin >> input;
+	    stream->putString(input);
 	}
     }
     catch (TcpException& ex) {

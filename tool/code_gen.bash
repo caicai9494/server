@@ -32,13 +32,9 @@ class $file {
 
   public:
 
-    $file()
-    {
-    }
+    $file() {}
 
-    ~$file()
-    {
-    }
+    ~$file() {}
 
   private:
 

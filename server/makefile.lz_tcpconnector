@@ -1,0 +1,17 @@
+CC=g++ 
+
+LIBS=
+LIBS_INC=../framework/ .
+
+TSK=tcpconnector.tsk
+SRC=lz_tcpconnector.t.cc lz_tcpexception.cc lz_tcpstream.cc lz_tcpconnector.cc 
+
+PTHREAD_ENABLED=#-pthread
+
+CPPFLAGS=$(LIBS_INC:%=-I%) $(LIBS:%=-L%) -g -std=c++11 $(PTHREAD_ENABLED)
+
+all:
+	$(CC) $(CPPFLAGS) -o $(TSK) $(SRC)
+
+clean:
+	rm -f *.o $(TSK)

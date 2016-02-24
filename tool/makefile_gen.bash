@@ -20,7 +20,7 @@ SRC=
 
 PTHREAD_ENABLED=#-pthread
 
-CPPFLAGS=-I$(LIBS_INC) -L$(LIBS) -g -std=c++11 $(PTHREAD_ENABLED)
+CPPFLAGS=$(LIBS_INC:%=-I%) $(LIBS:%=-L%) -g -std=c++11 $(PTHREAD_ENABLED)
 
 all:
 	$(CC) $(CPPFLAGS) -o $(TSK) $(SRC)
