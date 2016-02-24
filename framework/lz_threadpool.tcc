@@ -6,6 +6,7 @@
 // <lz_threadpool.h>
 
 #include <lz_threadpool.h>
+#include <lz_log.h>
 
 #include <chrono>
 #include <iostream>
@@ -45,6 +46,7 @@ typename Threadpool<SIZE>::ErrorCode Threadpool<SIZE>::start()
 template <size_t SIZE>
 void Threadpool<SIZE>::execute()
 {
+    // exception cannot escape from this function
     while (true) {
 
 	std::unique_lock<std::mutex> lck(d_mtx);
@@ -65,7 +67,18 @@ void Threadpool<SIZE>::execute()
 
 	lck.unlock();
 
-	toRun->run();
+	try {
+	    toRun->run();
+	}
+	catch (std::exception& ex) {
+	    std::cerr << ex.what() << '\n';
+	    sLog.writeError(ex.what());
+	}
+	catch (...) {
+	    std::string err = "Unknown exception from threads.\n";
+	    std::cerr << err << '\n';
+	    sLog.writeError(err);
+	}
     }
 }
 

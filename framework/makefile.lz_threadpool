@@ -4,7 +4,7 @@ LIBS=
 LIBS_INC=.
 
 TSK=threadpool.tsk
-SRC=lz_threadpool.t.cc lz_time.cc
+SRC=lz_threadpool.t.cc lz_time.cc lz_log.cc
 
 PTHREAD_ENABLED=-pthread
 

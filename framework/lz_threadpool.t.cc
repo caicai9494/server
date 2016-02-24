@@ -28,6 +28,22 @@ class TimePrinterRunnable : public Runnable {
     }
 };
 
+class IMayThrow : public Runnable {
+  public:
+    IMayThrow(size_t i) : d_index(i) {}
+    void run() override
+    {
+	if (d_index % 2 == 0) {
+	    throw std::runtime_error("Even Number " + std::to_string(d_index));
+	}
+	else if (d_index == 11) {
+	    throw d_index;
+	}
+    }
+  private:
+    size_t d_index;
+};
+
 }
 
 int main()
@@ -35,18 +51,31 @@ int main()
     //LZ::Threadpool<> threadpool;
     using namespace LZ;
 
-    Threadpool<50> threadpool;
+    Threadpool<10> threadpool;
 
     TimePrinterRunnable t;
 
     auto ret = threadpool.start();
 
-    for (size_t i = 0; i != 169; ++i) {
+    for (size_t i = 0; i != 16; ++i) {
 	threadpool.addTask(&t);
 	//threadpool.addTask(new TimePrinterRunnable());
     }
+    threadpool.barrier(2);
 
-    threadpool.barrier(10);
+    std::vector<IMayThrow*> imaythrows;
+    for (size_t i = 0; i != 16; ++i) {
+	imaythrows.push_back(new IMayThrow(i));
+	threadpool.addTask(imaythrows[i]);
+    }
+
+    threadpool.barrier(2);
+
+    for (size_t i = 0; i != 16; ++i) {
+	delete imaythrows[i];
+    }
+
+    // sleep 10 secs
 
     //std::this_thread::sleep_for(std::chrono::seconds(10));
     //ASSERT_EQ(1, 1);

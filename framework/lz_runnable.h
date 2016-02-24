@@ -3,7 +3,12 @@
 
 namespace LZ {
 
+#include <string>
+
 class Runnable {
+
+    // This class defines an interface class
+    // for thread function.
 
   public:
 
