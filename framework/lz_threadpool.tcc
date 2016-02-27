@@ -103,7 +103,6 @@ typename Threadpool<SIZE>::ErrorCode Threadpool<SIZE>::destroy()
     d_cond.notify_all();
 
     std::for_each(d_threads.begin(), d_threads.end(), [this](std::thread& th){
-	//d_cond.notify_all();
 	//d_tasks.push_back(nullptr);
 	th.join();
     });

@@ -24,6 +24,9 @@ class SessionRunnable : public Runnable {
     SessionRunnable(TcpAcceptor& acpt) :
 	d_acceptor(acpt) {}
     void run() override
+	// will occupy a thread forever
+	// until the connection is closed
+	// by the client
     {
 	auto stream = d_acceptor.acceptClient();
 
@@ -64,8 +67,6 @@ int main()
 	    threadpool.addTask(sessions[i]);
 	}
 	
-	threadpool.barrier(11);
-	// wait 11 sec
 
 	/*
 
@@ -90,6 +91,7 @@ int main()
     catch (TcpException& ex) {
 	std::cerr << ex.what() << '\n';
     }
+
     //ASSERT_EQ(1, 1);
     //ASSERT_TRUE("123" == "1231");
 

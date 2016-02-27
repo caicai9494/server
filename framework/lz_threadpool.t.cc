@@ -44,6 +44,17 @@ class IMayThrow : public Runnable {
     size_t d_index;
 };
 
+class Forever : public Runnable {
+  public:
+    void run() override
+	// this function will occupy a thread forever
+    {
+	std::cout << std::this_thread::get_id() << '\n';
+	while (1) {}
+    }
+};
+
+
 }
 
 int main()
@@ -57,23 +68,28 @@ int main()
 
     auto ret = threadpool.start();
 
+    /*
     for (size_t i = 0; i != 16; ++i) {
 	threadpool.addTask(&t);
 	//threadpool.addTask(new TimePrinterRunnable());
     }
     threadpool.barrier(2);
+    */
 
-    std::vector<IMayThrow*> imaythrows;
-    for (size_t i = 0; i != 16; ++i) {
-	imaythrows.push_back(new IMayThrow(i));
-	threadpool.addTask(imaythrows[i]);
+    //std::vector<IMayThrow*> imaythrows;
+    std::vector<Forever*> forevers;
+    for (size_t i = 0; i != 1; ++i) {
+	forevers.push_back(new Forever);
+	threadpool.addTask(forevers[i]);
     }
 
-    threadpool.barrier(2);
+    //threadpool.barrier(2);
 
+    /*
     for (size_t i = 0; i != 16; ++i) {
-	delete imaythrows[i];
+	delete forevers[i];
     }
+    */
 
     // sleep 10 secs
 
