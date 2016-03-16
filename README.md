@@ -1,3 +1,3 @@
 # server
 
-Build microservice-flavour application.
+Toy Tcp Server
